@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     string name;
     name = "phiper";
     int hp = 0, str = 0, def = 0, agi = 0;
-
+    hp = str = def = agi = 10;
 
     Hero hero;
     hero.setName(name);
@@ -130,7 +130,7 @@ int main(int argc, char **argv) {
 
         // update mapscreen
         mapScreen.update();
-        
+
         if(mapScreen.quit)
             keepLooping = false;
         

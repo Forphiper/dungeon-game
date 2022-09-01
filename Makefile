@@ -3,7 +3,7 @@ COMPILER_FLAGS = -Wall -g `sdl2-config --cflags`
 INCLUDES = -I /usr/include/SDL2
 RM = rm -f
 LINKER_FLAGS = `sdl2-config --libs` -L /usr/lib/x86_64-linux-gnu -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
-OBJECTS = Character.o Hero.o Glob.o MapScreen.o MapObject.o
+OBJECTS = Character.o Hero.o Glob.o MapScreen.o MapObject.o InfoBox.o
 
 all: ${OBJECTS}
 	${CC} ${COMPILER_FLAGS} ${INCLUDES} main.cpp ${OBJECTS} ${LINKER_FLAGS} -o main
@@ -22,6 +22,9 @@ MapScreen.o:MapScreen.cpp
 
 MapObject.o:MapObject.cpp
 	${CC} ${COMPILER_FLAGS} ${INCLUDES} MapObject.cpp -c -o MapObject.o
+
+InfoBox.o:InfoBox.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} InfoBox.cpp -c -o InfoBox.o
 
 clean:
 	${RM} main

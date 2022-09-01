@@ -8,6 +8,7 @@
 #include <list> // is a container that can shrink and grow (others vector, map, queue, stack)
 
 #include <fstream> // file stream
+#include "InfoBox.h"
 
 using namespace std;
 
@@ -32,7 +33,7 @@ public:
 
     bool quit = false;
 
-    // InfoBox infoBox;
+    InfoBox infoBox;
 
     MapScreen(SDL_Renderer* renderer, Hero* hero, int* items);
     ~MapScreen();

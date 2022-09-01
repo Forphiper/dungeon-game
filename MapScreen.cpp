@@ -95,6 +95,10 @@ MapScreen::MapScreen(SDL_Renderer* renderer, Hero* hero, int* items)
     doorTexture = IMG_LoadTexture(renderer, "assets/doorTile.png");
     globTexture = IMG_LoadTexture(renderer, "assets/globTile.png");
     chestTexture = IMG_LoadTexture(renderer, "assets/chestTile.png");
+
+    // setup info box
+    infoBox.setup(renderer);
+    infoBox.setText("Welcome to the Dungeon!");
 }
 
 MapScreen::~MapScreen()
@@ -128,45 +132,49 @@ void MapScreen::update()
                 quit = true;
             }
             // hide infobox when space is pressed
-            // if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_SPACE)
-            // {
-            //     infoBox.visible = false;
-            // }
+            if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_SPACE)
+            {
+                infoBox.visible = false;
+            }
 
-            // player movement
-            int hx = heroObj.x;
-            int hy = heroObj.y;
-            // right dpad on keyboard
-            if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_RIGHT)
+            if(infoBox.visible == false && hero->getHP() > 0)
             {
-                hx++;
-            }
-            // left
-            if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_LEFT)
-            {
-                hx--;
-            }
-            // down dpad on keyboard
-            if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_DOWN)
-            {
-                hy++;
-            }
-            // up
-            if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_UP)
-            {
-                hy--;
-            }
-            // if hx and hy are within the grid
-            // AND is land we can walk on (map value of 1)
-            if(hx >= 0 && hx <= 9 && hy >= 0 && hy <= 9 && map[hy][hx] == LAND)
-            {
-                // set heroObj.x and y to hx and hy
-                heroObj.x = hx;
-                heroObj.y = hy;
-            }
-            else
-            {
-                // invalid move, dont need to do anything here
+
+                // player movement
+                int hx = heroObj.x;
+                int hy = heroObj.y;
+                // right dpad on keyboard
+                if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_RIGHT)
+                {
+                    hx++;
+                }
+                // left
+                if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_LEFT)
+                {
+                    hx--;
+                }
+                // down dpad on keyboard
+                if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_DOWN)
+                {
+                    hy++;
+                }
+                // up
+                if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_UP)
+                {
+                    hy--;
+                }
+                // if hx and hy are within the grid
+                // AND is land we can walk on (map value of 1)
+                if(hx >= 0 && hx <= 9 && hy >= 0 && hy <= 9 && map[hy][hx] == LAND)
+                {
+                    // set heroObj.x and y to hx and hy
+                    heroObj.x = hx;
+                    heroObj.y = hy;
+                }
+                else
+                {
+                    // invalid move, dont need to do anything here
+                }
             }
         }
     }
@@ -231,6 +239,10 @@ void MapScreen::draw()
             }
         }
     }
+
+
+    // draw info box on top
+    infoBox.draw();
 }
 
 
