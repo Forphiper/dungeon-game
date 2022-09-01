@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    SDL_Window* window = SDL_CreateWindow("RPG GAME", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 320, 240, SDL_WINDOW_SHOWN);
+    SDL_Window* window = SDL_CreateWindow("RPG GAME", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
     if(window == nullptr)
     {
         cout << "SDL Window Error: " << SDL_GetError() << endl;
@@ -55,6 +55,30 @@ int main(int argc, char **argv) {
         SDL_Quit();
         return 1;
     }
+
+    // the size gfx are at min, but then scale up to actual window size
+    SDL_RenderSetLogicalSize(renderer, 320, 240);
+    
+    // load up image file and store as Texture inside of gfx card VRAM
+    SDL_Texture* testImg = IMG_LoadTexture(renderer, "assets/girlIdle.png");
+    if(testImg == nullptr)
+    {
+        cout << "Image did not load! " << IMG_GetError() << endl;
+    }
+    // ITEMS(using arrays...)
+    // items as ints. 0 = no item, 1 = chocolate, 2 = grenade, 3 = atk up, 4 = def up
+    // integer array holding 10 int variables
+    int items[10];
+    // loop through array using for loop and set each slot to = 0 (no item)
+    for(int i = 0; i < 10; i++)
+    {
+        items[i] = 0;
+    }
+    // set first item slot(index 0) to be our int number representing a chocolate
+    items[0] = 2;
+    // items[1] = 1;
+    // items[2] = 3;
+    
 
     bool keepLooping = true;
     // Game Loop
@@ -72,6 +96,23 @@ int main(int argc, char **argv) {
         SDL_SetRenderDrawColor(renderer, 34, 76, 22, 255);
         // draws filled in rectangle to window using rectangles data
         SDL_RenderFillRect(renderer, &rect);
+        
+        // the region of the texture we want to draw from
+        SDL_Rect srcRect;
+        srcRect.x = 0;
+        srcRect.y = 0;
+        srcRect.w = 107;
+        srcRect.h = 137;
+
+        // texture destination rectangle
+        SDL_Rect destRect;
+        destRect.x = 70;
+        destRect.y = 20;
+        destRect.w = 107;
+        destRect.h = 137;
+
+        // renderCopy renders textures to the window
+        SDL_RenderCopy(renderer, testImg, &srcRect, &destRect);
 
         // swaps drawing buffer
         SDL_RenderPresent(renderer);
@@ -84,6 +125,7 @@ int main(int argc, char **argv) {
     }
 
     // Cleanup
+    SDL_DestroyTexture(testImg);
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
