@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
-#include "Animal.h"
-#include "Narwhal.h"
+#include "Character.h"
+#include "Hero.h"
+#include "MapScreen.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -11,6 +12,16 @@
 using namespace std;
 
 int main(int argc, char **argv) {
+    string name;
+    name = "phiper";
+    int hp = 0, str = 0, def = 0, agi = 0;
+
+
+    Hero hero;
+    hero.setName(name);
+    hero.setupStats(hp, str, def, agi);
+
+
     // Initialise SDL2
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
@@ -75,10 +86,13 @@ int main(int argc, char **argv) {
         items[i] = 0;
     }
     // set first item slot(index 0) to be our int number representing a chocolate
-    items[0] = 2;
+    items[0] = 1;
     // items[1] = 1;
     // items[2] = 3;
+
     
+    // setup mapscreen object
+    MapScreen mapScreen(renderer, &hero, items);
 
     bool keepLooping = true;
     // Game Loop
@@ -113,6 +127,9 @@ int main(int argc, char **argv) {
 
         // renderCopy renders textures to the window
         SDL_RenderCopy(renderer, testImg, &srcRect, &destRect);
+
+        // draw game world
+        mapScreen.draw();
 
         // swaps drawing buffer
         SDL_RenderPresent(renderer);
