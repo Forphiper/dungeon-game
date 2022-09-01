@@ -19,9 +19,9 @@ public:
 
     SDL_Renderer* renderer;
 
-    enum MapType {WALL, GROUND};
+    enum MapType {WALL, LAND};
     enum ObjType {HERO = 1, DOOR = 2, GLOB = 3, MIMIC = 4, CHEST = 5};
-    
+
     // 2d array representing the map. 0 values = walls, 1 values = can walk/ground
     int map[10][10];
     MapObject heroObj;
@@ -30,10 +30,13 @@ public:
 
     SDL_Texture *heroTexture, *doorTexture, *globTexture, *chestTexture;
 
+    bool quit = false;
 
+    // InfoBox infoBox;
 
     MapScreen(SDL_Renderer* renderer, Hero* hero, int* items);
     ~MapScreen();
 
+    void update();
     void draw();
 };

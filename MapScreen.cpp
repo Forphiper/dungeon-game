@@ -40,7 +40,7 @@ MapScreen::MapScreen(SDL_Renderer* renderer, Hero* hero, int* items)
                 }
                 else
                 {
-                    map[y][x] = GROUND; // land
+                    map[y][x] = LAND; // land
 
                     // TODO was it a hero, glob, chest or mimic
                     if(grid == 'h')
@@ -106,6 +106,72 @@ MapScreen::~MapScreen()
     SDL_DestroyTexture(chestTexture);
 }
 
+void MapScreen::update()
+{
+    // read user inputs including keyboard, mouse, gamepads, screen resize/close, touch screens etc
+    SDL_Event sdlEvent;
+    // loop through input events and copy their details one by one into our sdlEvent variable
+    while(SDL_PollEvent(&sdlEvent))
+    {
+        // event when user clicks close window button
+        if(sdlEvent.type == SDL_QUIT)
+        {
+            quit = true;
+        }
+        // if a button was pressed
+        if(sdlEvent.type == SDL_KEYDOWN)
+        {
+            // then check which button
+            // did they press ESC key?
+            if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+            {
+                quit = true;
+            }
+            // hide infobox when space is pressed
+            // if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_SPACE)
+            // {
+            //     infoBox.visible = false;
+            // }
+
+            // player movement
+            int hx = heroObj.x;
+            int hy = heroObj.y;
+            // right dpad on keyboard
+            if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_RIGHT)
+            {
+                hx++;
+            }
+            // left
+            if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_LEFT)
+            {
+                hx--;
+            }
+            // down dpad on keyboard
+            if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_DOWN)
+            {
+                hy++;
+            }
+            // up
+            if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_UP)
+            {
+                hy--;
+            }
+            // if hx and hy are within the grid
+            // AND is land we can walk on (map value of 1)
+            if(hx >= 0 && hx <= 9 && hy >= 0 && hy <= 9 && map[hy][hx] == LAND)
+            {
+                // set heroObj.x and y to hx and hy
+                heroObj.x = hx;
+                heroObj.y = hy;
+            }
+            else
+            {
+                // invalid move, dont need to do anything here
+            }
+        }
+    }
+}
+
 void MapScreen::draw()
 {
     // MAP DRAWING
@@ -118,7 +184,7 @@ void MapScreen::draw()
         {
             // IF is ground, set draw color to ground color
             // ELSE set to wall color
-            if(map[y][x] == GROUND)
+            if(map[y][x] == LAND)
             {
                 // ground
                 SDL_SetRenderDrawColor(renderer, 136, 60, 100, 255);

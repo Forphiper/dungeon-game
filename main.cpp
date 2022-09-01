@@ -128,6 +128,12 @@ int main(int argc, char **argv) {
         // renderCopy renders textures to the window
         SDL_RenderCopy(renderer, testImg, &srcRect, &destRect);
 
+        // update mapscreen
+        mapScreen.update();
+        
+        if(mapScreen.quit)
+            keepLooping = false;
+        
         // draw game world
         mapScreen.draw();
 
@@ -135,10 +141,12 @@ int main(int argc, char **argv) {
         SDL_RenderPresent(renderer);
 
         // ticks are milliseconds since the start of SDL init
-        if(SDL_GetTicks() > 5000) // 1000ms = 1second
-        {
-            keepLooping = false;
-        }
+        // if(SDL_GetTicks() > 5000) // 1000ms = 1second
+        // {
+        //     keepLooping = false;
+        // }
+
+        
     }
 
     // Cleanup
