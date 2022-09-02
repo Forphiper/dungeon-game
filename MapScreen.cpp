@@ -239,6 +239,11 @@ void MapScreen::update()
                                 if(mo->type == GLOB)
                                 {
                                     // TODO battle glob
+                                    BattleScreen battle(renderer, hero, items);
+                                    battle.update();
+
+                                    if(battle.quit)
+                                        quit = true;
                                 }
                                 else if(mo->type == MIMIC)
                                 {

@@ -13,6 +13,8 @@
 #include <stdlib.h> // useful functions including rand and srand
 #include <time.h> // time in seconds since start of year
 
+#include "BattleScreen.h"
+
 using namespace std;
 
 class MapScreen
