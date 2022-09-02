@@ -213,6 +213,14 @@ void MapScreen::update()
                     heroObj.x = hx;
                     heroObj.y = hy;
 
+                    // can we escape the dungeon?
+                    if(!doorLocked && !escaped && heroObj.x == door.x && heroObj.y == door.y)
+                    {
+                        infoBox.setText("You escaped!");
+                        infoBox.visible = true;
+                        escaped = true;
+                    }
+
                     // see if we walked onto a map object
                     for(list<MapObject>::iterator mo = mapObjects.begin(); mo != mapObjects.end(); mo++)
                     {
@@ -251,6 +259,38 @@ void MapScreen::update()
                 }
             }
         }
+    }
+
+    // check to see if map objects all inactive and if we should unlock the door
+    if(!infoBox.visible && doorLocked)
+    {
+        bool monstersAlive = false;
+        for(MapObject mo : mapObjects)
+        {
+            // if is a monster (glob or mimic)
+            if(mo.type == GLOB || mo.type == MIMIC)
+            {
+                // if is acitve monster?
+                if(mo.active)
+                {
+                    monstersAlive = true;
+                    break;
+                }
+            }
+        }
+        // if all monsters are dead, unlock the door
+        if(!monstersAlive)
+        {
+            doorLocked = false;
+            infoBox.setText("The door is unlocked!");
+            infoBox.visible = true;
+        }
+    }
+
+    // has user closed infobox after escaping
+    if(!infoBox.visible && (escaped || hero->getHP() <= 0))
+    {
+        quit = true;
     }
 }
 

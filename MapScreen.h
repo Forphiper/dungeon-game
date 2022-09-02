@@ -36,6 +36,8 @@ public:
     SDL_Texture *heroTexture, *doorTexture, *globTexture, *chestTexture;
 
     bool quit = false;
+    bool escaped = false;
+    bool doorLocked = true;
 
     InfoBox infoBox;
 

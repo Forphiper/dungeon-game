@@ -155,7 +155,5 @@ int main(int argc, char **argv) {
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
 
-    cout << "end of code" << endl;
-
     return 0; 
 }
