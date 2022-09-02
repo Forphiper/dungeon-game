@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
         items[i] = 0;
     }
     // set first item slot(index 0) to be our int number representing a chocolate
-    items[0] = 1;
+    // items[0] = 1;
     // items[1] = 1;
     // items[2] = 3;
 

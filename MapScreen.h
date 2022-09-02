@@ -10,6 +10,9 @@
 #include <fstream> // file stream
 #include "InfoBox.h"
 
+#include <stdlib.h> // useful functions including rand and srand
+#include <time.h> // time in seconds since start of year
+
 using namespace std;
 
 class MapScreen
@@ -20,8 +23,9 @@ public:
 
     SDL_Renderer* renderer;
 
-    enum MapType {WALL, LAND};
-    enum ObjType {HERO = 1, DOOR = 2, GLOB = 3, MIMIC = 4, CHEST = 5};
+    enum {WALL, LAND};
+    enum {HERO = 1, DOOR = 2, GLOB = 3, MIMIC = 4, CHEST = 5};
+    enum {NOITEM, CHOCOLATE, GRENADE, ATKUP, DEFUP};
 
     // 2d array representing the map. 0 values = walls, 1 values = can walk/ground
     int map[10][10];
@@ -37,6 +41,8 @@ public:
 
     MapScreen(SDL_Renderer* renderer, Hero* hero, int* items);
     ~MapScreen();
+
+    void itemFound();
 
     void update();
     void draw();
