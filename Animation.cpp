@@ -33,7 +33,7 @@ void Animation::draw(int frame, int x, int y)
     clip.w = frameWidth;
     clip.h = frameHeight;
     // setup where frame should be drawn with destination rectangle
-    SDL Rect dest = { x - offsetX, y - offsetY, frameWidth, frameHeight }; // x,y,w,h
+    SDL_Rect dest = { x - offsetX, y - offsetY, frameWidth, frameHeight }; // x,y,w,h
     // draw
     SDL_RenderCopy(renderer, spriteSheet, &clip, &dest);
 }

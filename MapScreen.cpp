@@ -154,6 +154,7 @@ void MapScreen::itemFound()
 
 void MapScreen::update()
 {
+
     // read user inputs including keyboard, mouse, gamepads, screen resize/close, touch screens etc
     SDL_Event sdlEvent;
     // loop through input events and copy their details one by one into our sdlEvent variable

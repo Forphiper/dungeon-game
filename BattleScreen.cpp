@@ -31,8 +31,19 @@ BattleScreen::~BattleScreen()
 
 void BattleScreen::update()
 {
+    // timing setup
+    // deltaTime (measurement of time per frame render as fraction of 1 second e.g 0.5 = 500ms)
+    float dt = 0;
+    // last time we worked out deltaTime
+    Uint32 lastUpdate = SDL_GetTicks();
+
     while(!battleFinished)
     {
+        // update our delta time
+        Uint32 timeDiff = SDL_GetTicks() - lastUpdate;
+        dt = timeDiff / 1000.0f;
+        lastUpdate = SDL_GetTicks(); // update this so we get correct diff
+
         // read user inputs including keyboard, mouse, gamepads, screen resize/close, touch screens etc
         SDL_Event sdlEvent;
         // loop through input events and copy their details one by one into our sdlEvent variable
