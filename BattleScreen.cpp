@@ -35,6 +35,10 @@ BattleScreen::BattleScreen(SDL_Renderer* renderer, Hero* hero, int* items, Chara
         enemy = new Glob();
     else if(enemyType == mimicType)
         enemy = new Mimic();
+
+    // setup health bars
+    heroHP.setup(renderer, 90, 194);
+    enemyHP.setup(renderer, 190, 10);
 }
 
 BattleScreen::~BattleScreen()
@@ -88,6 +92,14 @@ void BattleScreen::update()
         heroAnimationSet.update(dt);
         enemyAnimationSet.update(dt);
 
+        // update health bars
+        heroHP.hp = hero->getHP();
+        heroHP.hpMax = hero->getHPMax();
+
+        enemyHP.hp = enemy->getHP();
+        enemyHP.hpMax = enemy->getHPMax();
+
+
         draw();
     }
 }
@@ -103,7 +115,7 @@ void BattleScreen::draw()
 
     // draw enemy
     enemyAnimationSet.draw();
-    
+
     // draw hero
     heroAnimationSet.draw();
 
@@ -115,10 +127,12 @@ void BattleScreen::draw()
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderDrawRect(renderer, &bottomUIBar);
 
-
     // draw name
     SDL_RenderCopy(renderer, nameTexture, NULL, &nameRect);
 
+    // draw HP bars
+    heroHP.draw();
+    enemyHP.draw();
 
     // present frame to screen
     SDL_RenderPresent(renderer);
