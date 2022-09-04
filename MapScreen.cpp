@@ -239,16 +239,23 @@ void MapScreen::update()
                                 // check map objects type and deal with accrordingly
                                 if(mo->type == GLOB)
                                 {
-                                    // TODO battle glob
-                                    BattleScreen battle(renderer, hero, items);
+                                    // battle glob
+                                    BattleScreen battle(renderer, hero, items, globType);
                                     battle.update();
 
                                     if(battle.quit)
                                         quit = true;
+                                    // TODO deal with death
                                 }
                                 else if(mo->type == MIMIC)
                                 {
-                                    // TODO battle mimic
+                                    // battle mimic
+                                    BattleScreen battle(renderer, hero, items, mimicType);
+                                    battle.update();
+
+                                    if(battle.quit)
+                                        quit = true;
+                                    // TODO deal with death
                                 }
                                 else if(mo->type == CHEST)
                                 {

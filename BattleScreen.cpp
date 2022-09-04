@@ -1,7 +1,11 @@
 #include "BattleScreen.h"
 
-BattleScreen::BattleScreen(SDL_Renderer* renderer, Hero* hero, int* items)
+BattleScreen::BattleScreen(SDL_Renderer* renderer, Hero* hero, int* items, CharacterType enemyType)
 {
+    // if incorrect enemy type put in, default to glob
+    if(enemyType != globType && enemyType != mimicType)
+        enemyType = globType;
+
     this->renderer = renderer;
     this->hero = hero;
     this->items = items;
@@ -21,6 +25,16 @@ BattleScreen::BattleScreen(SDL_Renderer* renderer, Hero* hero, int* items)
     nameRect.x = 90;
     nameRect.y = 180;
     SDL_QueryTexture(nameTexture, NULL, NULL, &nameRect.w, &nameRect.h);
+
+    // setup animations
+    heroAnimationSet.setup(renderer, 47, 181, heroType);
+    enemyAnimationSet.setup(renderer, 246, 114, enemyType);
+
+    // revise polymorphism lessons from before if confused
+    if(enemyType == globType)
+        enemy = new Glob();
+    else if(enemyType == mimicType)
+        enemy = new Mimic();
 }
 
 BattleScreen::~BattleScreen()
@@ -69,6 +83,10 @@ void BattleScreen::update()
         // exit battle if close window or press ESC
         if(quit)
             battleFinished = true;
+        
+        // update  animations
+        heroAnimationSet.update(dt);
+        enemyAnimationSet.update(dt);
 
         draw();
     }
@@ -82,6 +100,12 @@ void BattleScreen::draw()
 
     // draw bg
     SDL_RenderCopy(renderer, backgroundTexture, NULL, NULL);
+
+    // draw enemy
+    enemyAnimationSet.draw();
+    
+    // draw hero
+    heroAnimationSet.draw();
 
     // ui bottom bar
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
