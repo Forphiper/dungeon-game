@@ -15,11 +15,13 @@ int main(int argc, char **argv) {
     string name;
     name = "phiper";
     int hp = 0, str = 0, def = 0, agi = 0;
-    hp = str = def = agi = 10;
+    hp = 50;
+    str = def = agi = 10;
 
     Hero hero;
     hero.setName(name);
     hero.setupStats(hp, str, def, agi);
+    hero.displayStats();
 
 
     // Initialise SDL2
