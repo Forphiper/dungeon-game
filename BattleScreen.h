@@ -27,8 +27,8 @@ public:
 
     Character* enemy;
 
-    bool battleFinished;
-    bool quit;
+    bool battleFinished = false;
+    bool quit = false;
     bool herosTurn = true;
 
     SDL_Texture* nameTexture;
@@ -43,9 +43,13 @@ public:
     BattleButton fightButton;
     BattleButton itemButton;
 
+    int heroDmg = 0, enemyDmg = 0;
+    
+
     BattleScreen(SDL_Renderer* renderer, Hero* hero, int* items, CharacterType enemyType);
     ~BattleScreen();
 
+    bool animationsPlaying();
     void update();
     void draw();
 };

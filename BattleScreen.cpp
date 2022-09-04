@@ -44,12 +44,24 @@ BattleScreen::BattleScreen(SDL_Renderer* renderer, Hero* hero, int* items, Chara
     fightButton.setup(renderer, { 0,180,80,30 }, "Fight");
     fightButton.selected = true;
     itemButton.setup(renderer, { 0,210,80,30 }, "Item");
+
+    // decide who goes first
+    if(hero->getAGI() > enemy->getAGI())
+        herosTurn = true;
+    else
+        herosTurn = false;
 }
 
 BattleScreen::~BattleScreen()
 {
     SDL_DestroyTexture(backgroundTexture);
     SDL_DestroyTexture(nameTexture);
+}
+
+bool BattleScreen::animationsPlaying()
+{
+    bool animating = heroAnimationSet.doAction || enemyAnimationSet.doAction;
+    return animating;
 }
 
 void BattleScreen::update()
@@ -102,12 +114,55 @@ void BattleScreen::update()
                         itemButton.selected = true;
                     }
                 }
+                else if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_SPACE && sdlEvent.key.repeat == 0)
+                {
+                    if(herosTurn && !animationsPlaying())
+                    {
+                        if(fightButton.selected)
+                        {
+                            heroAnimationSet.doAttack();
+                            enemyDmg = hero->getDamage();
+                            herosTurn = false;
+                        }
+                    }
+                }
             }
         }
 
         // exit battle if close window or press ESC
         if(quit)
             battleFinished = true;
+
+        // update character states
+        if(!animationsPlaying())
+        {
+            if(hero->getHP() <= 0 || enemy->getHP() <= 0)
+            {
+                // if anyone is dead, battle over
+                battleFinished = true;
+            }
+            else if(heroDmg > 0)
+            {
+                hero->takeDamage(heroDmg);
+                heroAnimationSet.doHit();
+
+                heroDmg = 0;
+            }
+            else if(enemyDmg > 0)
+            {
+                enemy->takeDamage(enemyDmg);
+                enemyAnimationSet.doHit();
+
+                enemyDmg = 0;
+            }
+            else if(!herosTurn)
+            {
+                // ENEMY ATTACK
+                enemyAnimationSet.doAttack();
+                heroDmg = enemy->getDamage();
+                herosTurn = true;
+            }
+        }
         
         // update  animations
         heroAnimationSet.update(dt);

@@ -242,7 +242,7 @@ void MapScreen::update()
                                     // battle glob
                                     BattleScreen battle(renderer, hero, items, globType);
                                     battle.update();
-
+                                    
                                     if(battle.quit)
                                         quit = true;
                                     // TODO deal with death
