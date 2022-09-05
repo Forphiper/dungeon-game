@@ -15,8 +15,9 @@ int main(int argc, char **argv) {
     string name;
     name = "phiper";
     int hp = 0, str = 0, def = 0, agi = 0;
-    hp = 60;
-    str = def = agi = 5;
+    hp = 30;
+    def = 2;
+    str = agi = 5;
 
     Hero hero;
     hero.setName(name);

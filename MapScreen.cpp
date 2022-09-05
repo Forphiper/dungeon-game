@@ -245,7 +245,13 @@ void MapScreen::update()
                                     
                                     if(battle.quit)
                                         quit = true;
-                                    // TODO deal with death
+                                    else if(hero->getHP() <= 0)
+                                    {
+                                        infoBox.setText("You died!");
+                                        infoBox.visible = true;
+                                    }
+                                    
+
                                 }
                                 else if(mo->type == MIMIC)
                                 {
@@ -255,7 +261,12 @@ void MapScreen::update()
 
                                     if(battle.quit)
                                         quit = true;
-                                    // TODO deal with death
+                                    else if(hero->getHP() <= 0)
+                                    {
+                                        infoBox.setText("You died!");
+                                        infoBox.visible = true;
+                                    }
+                                    
                                 }
                                 else if(mo->type == CHEST)
                                 {

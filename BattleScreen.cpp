@@ -50,6 +50,9 @@ BattleScreen::BattleScreen(SDL_Renderer* renderer, Hero* hero, int* items, Chara
         herosTurn = true;
     else
         herosTurn = false;
+
+    // setup battle effects
+    battleEffects.setup(renderer, enemyAnimationSet.x, enemyAnimationSet.y);
 }
 
 BattleScreen::~BattleScreen()
@@ -60,7 +63,7 @@ BattleScreen::~BattleScreen()
 
 bool BattleScreen::animationsPlaying()
 {
-    bool animating = heroAnimationSet.doAction || enemyAnimationSet.doAction;
+    bool animating = heroAnimationSet.doAction || enemyAnimationSet.doAction || battleEffects.doAction;
     return animating;
 }
 
@@ -146,12 +149,18 @@ void BattleScreen::update()
                 hero->takeDamage(heroDmg);
                 heroAnimationSet.doHit();
 
+                battleEffects.setXY(heroAnimationSet.x, heroAnimationSet.y);
+                battleEffects.doHit();
+
                 heroDmg = 0;
             }
             else if(enemyDmg > 0)
             {
                 enemy->takeDamage(enemyDmg);
                 enemyAnimationSet.doHit();
+
+                battleEffects.setXY(enemyAnimationSet.x, enemyAnimationSet.y);
+                battleEffects.doHit();
 
                 enemyDmg = 0;
             }
@@ -175,7 +184,8 @@ void BattleScreen::update()
         enemyHP.hp = enemy->getHP();
         enemyHP.hpMax = enemy->getHPMax();
         
-
+        // update battle effect animations
+        battleEffects.update(dt);
 
         draw();
     }
@@ -214,6 +224,9 @@ void BattleScreen::draw()
     // draw buttons
     fightButton.draw();
     itemButton.draw();
+
+    // draw battle effects
+    battleEffects.draw();
 
     // present frame to screen
     SDL_RenderPresent(renderer);
