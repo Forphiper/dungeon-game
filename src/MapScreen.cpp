@@ -31,7 +31,7 @@ MapScreen::MapScreen(SDL_Renderer* renderer, Hero* hero, int* items)
     // map[3][2] = 1;
 
     // Open map text file
-    fstream mapFile("assets/map.txt");
+    fstream mapFile("../assets/map.txt");
     if(mapFile.is_open())
     {
         for(int y = 0; y < 10; y++)
@@ -98,10 +98,10 @@ MapScreen::MapScreen(SDL_Renderer* renderer, Hero* hero, int* items)
     mapFile.close();
 
     // LOAD UP TILE TEXTURES
-    heroTexture = IMG_LoadTexture(renderer, "assets/girlTile.png");
-    doorTexture = IMG_LoadTexture(renderer, "assets/doorTile.png");
-    globTexture = IMG_LoadTexture(renderer, "assets/globTile.png");
-    chestTexture = IMG_LoadTexture(renderer, "assets/chestTile.png");
+    heroTexture = IMG_LoadTexture(renderer, "../assets/girlTile.png");
+    doorTexture = IMG_LoadTexture(renderer, "../assets/doorTile.png");
+    globTexture = IMG_LoadTexture(renderer, "../assets/globTile.png");
+    chestTexture = IMG_LoadTexture(renderer, "../assets/chestTile.png");
 
     // setup info box
     infoBox.setup(renderer);

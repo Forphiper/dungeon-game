@@ -170,7 +170,7 @@ int main(int argc, char **argv) {
     SDL_RenderSetLogicalSize(renderer, 320, 240);
     
     // load up image file and store as Texture inside of gfx card VRAM
-    SDL_Texture* testImg = IMG_LoadTexture(renderer, "assets/girlIdle.png");
+    SDL_Texture* testImg = IMG_LoadTexture(renderer, "../assets/girlIdle.png");
     if(testImg == nullptr)
     {
         cout << "Image did not load! " << IMG_GetError() << endl;

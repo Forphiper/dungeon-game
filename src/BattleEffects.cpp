@@ -8,11 +8,11 @@ void BattleEffects::setup(SDL_Renderer* renderer, int x, int y)
     this->y = y;
 
     // load all effect animations
-    hit.setup("assets/hit.png", renderer, 4, 0.083f, 54, 107);
-    heal.setup("assets/heal.png", renderer, 4, 0.083f, 54, 107);
-    explode.setup("assets/explode.png", renderer, 4, 0.083f, 54, 107);
-    atkBoost.setup("assets/atkBoost.png", renderer, 4, 0.083f, 31, 134);
-    defBoost.setup("assets/defBoost.png", renderer, 4, 0.083f, 31, 134);
+    hit.setup("../assets/hit.png", renderer, 4, 0.083f, 54, 107);
+    heal.setup("../assets/heal.png", renderer, 4, 0.083f, 54, 107);
+    explode.setup("../assets/explode.png", renderer, 4, 0.083f, 54, 107);
+    atkBoost.setup("../assets/atkBoost.png", renderer, 4, 0.083f, 31, 134);
+    defBoost.setup("../assets/defBoost.png", renderer, 4, 0.083f, 31, 134);
 }
 
 void BattleEffects::setXY(int x, int y)

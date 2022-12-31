@@ -3,7 +3,7 @@
 InfoBox::InfoBox()
 {
     // load font with font size 16
-    font = TTF_OpenFont("assets/vermin_vibes_1989.ttf", 16);
+    font = TTF_OpenFont("../assets/vermin_vibes_1989.ttf", 16);
 
 }
 

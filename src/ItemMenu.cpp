@@ -26,7 +26,7 @@ void ItemMenu::setup(SDL_Renderer* renderer, int* items, int x, int y)
     this->x = x;
     this->y = y;
 
-    TTF_Font* font = TTF_OpenFont("assets/vermin_vibes_1989.ttf", 16);
+    TTF_Font* font = TTF_OpenFont("../assets/vermin_vibes_1989.ttf", 16);
     SDL_Color textColor = { 0,0,0,0 };
 
     // generate all text textures

@@ -12,7 +12,7 @@ void BattleButton::setup(SDL_Renderer* renderer, SDL_Rect buttonRect, string tex
     this->buttonRect = buttonRect;
 
     // Create Name Texture
-    TTF_Font* font = TTF_OpenFont("assets/vermin_vibes_1989.ttf", 16);
+    TTF_Font* font = TTF_OpenFont("../assets/vermin_vibes_1989.ttf", 16);
     SDL_Color textColor = { 0,0,0,0 };
     SDL_Surface* textSurface = TTF_RenderText_Blended(font, text.c_str(), textColor);
     textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);

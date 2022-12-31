@@ -1,56 +1,61 @@
 CC = g++
 COMPILER_FLAGS = -Wall -g `sdl2-config --cflags`
-INCLUDES = -I /usr/include/SDL2
+INCLUDES = -I /usr/include/SDL2 -I ./include
 RM = rm -f
 LINKER_FLAGS = `sdl2-config --libs` -L /usr/lib/x86_64-linux-gnu -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
-OBJECTS = Character.o Hero.o Glob.o Mimic.o MapScreen.o MapObject.o InfoBox.o BattleScreen.o Animation.o AnimationManager.o \
-CharacterAnimationSet.o HPBar.o BattleButton.o BattleEffects.o
+OBJECTS = ./build/Character.o ./build/Hero.o ./build/Glob.o ./build/Mimic.o ./build/MapScreen.o ./build/MapObject.o \
+./build/InfoBox.o ./build/BattleScreen.o ./build/Animation.o ./build/AnimationManager.o \
+./build/CharacterAnimationSet.o ./build/HPBar.o ./build/BattleButton.o ./build/BattleEffects.o \
+./build/ItemMenu.o
 
 all: ${OBJECTS}
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} main.cpp ${OBJECTS} ${LINKER_FLAGS} -o main
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/main.cpp ${OBJECTS} ${LINKER_FLAGS} -o ./bin/main
 
-Character.o:Character.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} Character.cpp -c -o Character.o
+./build/Character.o:./src/Character.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/Character.cpp -c -o ./build/Character.o
 
-Hero.o:Hero.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} Hero.cpp -c -o Hero.o
+./build/Hero.o:./src/Hero.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/Hero.cpp -c -o ./build/Hero.o
 
-Glob.o:Glob.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} Glob.cpp -c -o Glob.o
+./build/Glob.o:./src/Glob.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/Glob.cpp -c -o ./build/Glob.o
 
-Mimic.o:Mimic.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} Mimic.cpp -c -o Mimic.o
+./build/Mimic.o:./src/Mimic.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/Mimic.cpp -c -o ./build/Mimic.o
 
-MapScreen.o:MapScreen.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} MapScreen.cpp -c -o MapScreen.o
+./build/MapScreen.o:./src/MapScreen.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/MapScreen.cpp -c -o ./build/MapScreen.o
 
-MapObject.o:MapObject.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} MapObject.cpp -c -o MapObject.o
+./build/MapObject.o:./src/MapObject.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/MapObject.cpp -c -o ./build/MapObject.o
 
-InfoBox.o:InfoBox.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} InfoBox.cpp -c -o InfoBox.o
+./build/InfoBox.o:./src/InfoBox.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/InfoBox.cpp -c -o ./build/InfoBox.o
 
-BattleScreen.o:BattleScreen.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} BattleScreen.cpp -c -o BattleScreen.o
+./build/BattleScreen.o:./src/BattleScreen.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/BattleScreen.cpp -c -o ./build/BattleScreen.o
 
-Animation.o:Animation.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} Animation.cpp -c -o Animation.o
+./build/Animation.o:./src/Animation.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/Animation.cpp -c -o ./build/Animation.o
 
-AnimationManager.o:AnimationManager.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} AnimationManager.cpp -c -o AnimationManager.o
+./build/AnimationManager.o:./src/AnimationManager.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/AnimationManager.cpp -c -o ./build/AnimationManager.o
 
-CharacterAnimationSet.o:CharacterAnimationSet.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} CharacterAnimationSet.cpp -c -o CharacterAnimationSet.o
+./build/CharacterAnimationSet.o:./src/CharacterAnimationSet.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/CharacterAnimationSet.cpp -c -o ./build/CharacterAnimationSet.o
 
-HPBar.o:HPBar.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} HPBar.cpp -c -o HPBar.o
+./build/HPBar.o:./src/HPBar.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/HPBar.cpp -c -o ./build/HPBar.o
 
-BattleButton.o:BattleButton.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} BattleButton.cpp -c -o BattleButton.o
+./build/BattleButton.o:./src/BattleButton.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/BattleButton.cpp -c -o ./build/BattleButton.o
 
-BattleEffects.o:BattleEffects.cpp
-	${CC} ${COMPILER_FLAGS} ${INCLUDES} BattleEffects.cpp -c -o BattleEffects.o
+./build/BattleEffects.o:./src/BattleEffects.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/BattleEffects.cpp -c -o ./build/BattleEffects.o
+
+./build/ItemMenu.o:./src/ItemMenu.cpp
+	${CC} ${COMPILER_FLAGS} ${INCLUDES} ./src/ItemMenu.cpp -c -o ./build/ItemMenu.o
 
 clean:
-	${RM} main
+	${RM} ./bin/main
 	${RM} ${OBJECTS}
